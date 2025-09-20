@@ -1,6 +1,7 @@
 A proof of concept installation of the [php-saml](https://github.com/SAML-Toolkits/php-saml/) toolkit
 
 * Build: `docker build -t gunet/phpsaml-tester .` or using the docker compose `docker compose build`
+ - There's also a publically available Docker [image](https://hub.docker.com/repository/docker/gunet/phpsaml-tester/) so you usually only need to pull the image (`docker compose pull` or `docker pull gunet/phpsaml-tester`)
 * Run: `docker run --rm -p 80:80 --name saml-php gunet/phpsaml-tester`
 * Docker compose: `docker compose up -d`
   - Includes a [simple-ldap](https://hub.docker.com/r/gunet/simple-ldap) and [simple-cas](https://hub.docker.com/r/gunet/simple-cas) stack. For things to work correctly we volume mount `cas-services` into `/etc/cas/services` in order to enable only a SAML service with our own metadata
