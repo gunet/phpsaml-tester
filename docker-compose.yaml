@@ -1,0 +1,42 @@
+services:
+  tester:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gunet/phpsaml-tester:latest
+    ports:
+      - "80:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "2"
+    depends_on:
+      ldap:
+        condition: service_healthy
+      sso:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - SP_ENTITYID=http://host.docker.internal
+      - SP_SIGN_AUTHNREQUEST=true
+      - IDP_METADATA=https://host.docker.internal:8443/cas/idp/metadata
+  ldap:
+    image: gunet/simple-ldap
+    restart: unless-stopped
+  sso:
+    image: gunet/simple-cas
+    ports:
+      - 8443:8443
+    depends_on:
+      ldap:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./cas-services:/etc/cas/services
+    environment:
+      - LDAP_URL=ldap://ldap:1389
+      - CAS_SERVER_NAME=${CAS_SERVER_NAME:-https://host.docker.internal:8443}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

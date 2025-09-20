@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+# If the IDP_METADATA environment variable is set, download and parse it to create idp_config.php
+# Otherwise, the user must provide their own idp_config.php
+# We should notify the user that they need to provide this file if they haven't set the env variable
+if [ -n "$IDP_METADATA" ]; then
+		echo "Downloading IdP metadata from $IDP_METADATA..."
+		curl -sk -o /var/tmp/idp_metadata.xml $IDP_METADATA || { echo "Failed to download IdP metadata from $IDP_METADATA"; exit 1; }
+		echo "Parsing IdP metadata and creating idp_config.php..."
+		php /var/www/html/parse_metadata.php /var/tmp/idp_metadata.xml > /var/www/html/idp_config.php || \
+		{ echo "Failed to parse IdP metadata"; exit 1; }
+		echo "IdP configuration created at /var/www/html/idp_config.php"
+		# Clean up the temporary metadata file
+		rm /var/tmp/idp_metadata.xml
+else
+		echo "Please provide your own complete idp_config.php  for the IdP configuration."
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+exec "$@"

@@ -1,0 +1,9 @@
+{
+  "@class" : "org.apereo.cas.support.saml.services.SamlRegisteredService",
+  "serviceId" : "^http(|s)://.*",
+  "name" : "SAMLService",
+  "id" : 4001,
+  "evaluationOrder" : 10,
+  "attributeReleasePolicy":{"@class":"org.apereo.cas.services.ReturnAllAttributeReleasePolicy" },
+  "metadataLocation" : "http://host.docker.internal/endpoints/metadata.php",
+}
