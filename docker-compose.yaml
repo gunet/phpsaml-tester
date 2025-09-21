@@ -38,5 +38,6 @@ services:
     environment:
       - LDAP_URL=ldap://ldap:1389
       - CAS_SERVER_NAME=${CAS_SERVER_NAME:-https://host.docker.internal:8443}
+      - SAML_SP_METADATA=http://host.docker.internal/endpoints/metadata.php
     extra_hosts:
       - "host.docker.internal:host-gateway"
