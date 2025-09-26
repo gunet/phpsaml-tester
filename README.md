@@ -18,3 +18,5 @@ A proof of concept installation of the [php-saml](https://github.com/SAML-Toolki
 * `SP_WANT_MESSAGE_SIGNED=false`
 * `SP_WANT_ASSERTIONS_ENCRYPTED=false`
 * `SP_WANT_ASSERTIONS_SIGNED=false`
+* `SP_SIGN_LOGOUTREQUEST=false`
+* `SP_SIGN_LOGOUTRESPONSE=false`

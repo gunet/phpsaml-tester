@@ -23,11 +23,11 @@ $advancedSettings = array (
         'authnRequestsSigned' => $_ENV['SP_SIGN_AUTHNREQUEST'] === 'true',
         // Indicates whether the <samlp:logoutRequest> messages sent by this SP
         // will be signed.
-        'logoutRequestSigned' => false,
+        'logoutRequestSigned' => $_ENV['SP_SIGN_LOGOUTREQUEST'] === 'true',
 
         // Indicates whether the <samlp:logoutResponse> messages sent by this SP
         // will be signed.
-        'logoutResponseSigned' => false,
+        'logoutResponseSigned' => $_ENV['SP_SIGN_LOGOUTRESPONSE'] === 'true',
 
         /* Sign the Metadata
          False || True (use sp certs) || array (
