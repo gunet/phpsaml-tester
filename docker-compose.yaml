@@ -22,6 +22,7 @@ services:
       - SP_ENTITYID=http://host.docker.internal
       - SP_SIGN_AUTHNREQUEST=true
       - IDP_METADATA=https://host.docker.internal:8443/cas/idp/metadata
+      - SP_SIGN_LOGOUTREQUEST=true
   ldap:
     image: gunet/simple-ldap
     restart: unless-stopped

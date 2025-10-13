@@ -41,6 +41,9 @@ HTML;
 
           <h1 class="fancy-title">Secured Content</h1>
           <p class="description">If you are seeing this, you were authenticated successfully.</p>
+          <form method="POST" action="auth.php">
+            <input type="submit" name="logout" value="Logout" class="fancy-button">
+          </form>
           <br>
           <?php
           $user = $auth->getNameId();
@@ -68,6 +71,12 @@ HTML;
 
         echo "</table>";
       } else {
+        if (isset($_POST['logout'])) {
+            // Handle logout
+            $auth->logout();
+            session_destroy();
+            exit();
+        }
         try {
             error_log("User not authenticated, initiating SAML login.");
             $auth->login();
