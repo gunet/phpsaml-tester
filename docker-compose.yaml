@@ -33,8 +33,6 @@ services:
       ldap:
         condition: service_healthy
     restart: unless-stopped
-    volumes:
-      - ./cas-services:/etc/cas/services
     environment:
       - LDAP_URL=ldap://ldap:1389
       - CAS_SERVER_NAME=${CAS_SERVER_NAME:-https://host.docker.internal:8443}
